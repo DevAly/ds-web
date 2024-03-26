@@ -10,22 +10,44 @@
 
 <body>
     <div class="container">
-        <h1>Quiz mathematique</h1>
-        <div class="timer-and-question-container">
-            <div id="timer"></div>
-            <div id="nb-questions-left"></div>
+        <img src="https://www.universitecentrale.net/images/front2020/logo.webp" alt="" class="logo">
+        <div class="start-quiz-area">
+            <h1>Quiz mathematique</h1>
+
+            <h2>🧮 Bienvenue dans notre quiz de mathématiques! 🎓</h2>
+
+            <strong>Prêt à relever le défi et à tester vos connaissances?</strong> Ce quiz propose une variété de questions allant du niveau débutant à avancé, couvrant des sujets comme l'arithmétique, la géométrie, les nombres premiers et bien plus encore. 🌟
+            <br>
+            <br>
+            <strong>Préparez-vous à:</strong>
+            <ul>
+            <li>🔢 Résoudre des problèmes amusants.</li>
+            <li>📏 Tester vos compétences en géométrie.</li>
+            <li>➕ Démontrer votre compréhension des opérations mathématiques.</li>
+            </ul>
+            
+            Prêt à mettre votre cerveau au défi? Commencez maintenant! 🚀
+            <button id="start-quiz">Demarrer le quiz</button>
+
         </div>
-        
-        <div id="progress-bar-container">
-            <div id="progress-bar"></div>
+        <div class="quiz">
+            <h1>Quiz mathematique</h1>
+            <div class="timer-and-question-container">
+                <div id="timer"></div>
+                <div id="nb-questions-left"></div>
+            </div>
+            
+            <div id="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+            <div id="question-container"></div>
+            <div class="buttons-container">
+                <button id="back-btn">Retour</button> <!-- Back button -->
+                <button id="submit-btn">Soumettre</button>
+            </div>
+            
+            <div id="feedback"></div>
         </div>
-        <div id="question-container"></div>
-        <div class="buttons-container">
-            <button id="back-btn">Retour</button> <!-- Back button -->
-            <button id="submit-btn">Soumettre</button>
-        </div>
-        
-        <div id="feedback"></div>
     </div>
     <script src="javascript.js"></script>
 </body>

@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     const backButton = document.getElementById('back-btn');
+    
 
     backButton.addEventListener('click', function () {
 
@@ -20,6 +21,22 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    const startButton = document.getElementById('start-quiz');
+
+    startButton.addEventListener('click', function(){
+        fetch('questions.json')
+        .then(response => response.json())
+        .then(data => {
+            questions = data;
+            questions = shuffleArray(questions);
+            showQuestion();
+            startTimer();
+            document.querySelector('.start-quiz-area').style.display = 'none';
+            document.querySelector('.quiz').style.display = 'initial';
+        });
+    });
+
+    
 
 
     function startTimer() {
@@ -236,15 +253,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return array;
     }
-
-    fetch('questions.json')
-        .then(response => response.json())
-        .then(data => {
-            questions = data;
-            questions = shuffleArray(questions);
-            showQuestion();
-            startTimer();
-        });
 
     const escapeHtml = (unsafe) => {
         return unsafe + "".replaceAll('<', '&lt;').replaceAll('>', '&gt;');

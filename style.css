@@ -71,3 +71,11 @@ button:hover {
     flex-wrap: nowrap;
     display: flex;
 }
+.quiz{
+    display: none;
+}
+
+.logo{
+    width: 150px;
+    position: absolute;
+}
