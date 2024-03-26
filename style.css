@@ -58,3 +58,16 @@ button:hover {
     display: flex;
     flex-direction: row;
 }
+#nb-questions-left{
+    width: 50%;
+    text-align: right;
+}
+#timer{
+    width: 50%;
+    text-align: left;
+}
+
+.timer-and-question-container{
+    flex-wrap: nowrap;
+    display: flex;
+}

@@ -28,16 +28,25 @@ document.addEventListener('DOMContentLoaded', function () {
                 clearInterval(timerInterval);
                 showResults();
             } else {
-                timeLeft--;
-                timerDisplay.textContent = `Temps restant: ${timeLeft} secondes`;
-
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+    
+                if (minutes === 0) {
+                    timerDisplay.textContent = `Temps restant: ${seconds} secondes`;
+                } else {
+                    timerDisplay.textContent = `Temps restant: ${minutes} minutes ${seconds} secondes`;
+                }
+                
                 if (timeLeft === 0) {
                     clearInterval(timerInterval);
                     showResults();
+                } else {
+                    timeLeft--;
                 }
             }
         }, 1000);
     }
+    
 
     function updateProgressBar() {
         const progress = (currentQuestionIndex + 1) / questions.length * 100;
@@ -45,6 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function showQuestion() {
+
+        document.getElementById('nb-questions-left').innerText = (questions.length - currentQuestionIndex)+' questions restantes';
+
         questionContainer.innerHTML = '';
         if (currentQuestionIndex > 0) {
             backButton.style.display = 'block';
