@@ -1,102 +1,102 @@
 [
     {
-        "question": "Quelle balise HTML est utilisée pour créer une liste non ordonnée ?",
+        "question": "Quel est le résultat de 2 + 2 ?",
         "options": "",
-        "answer": "<ul>"
+        "answer": "4"
     },
     {
-        "question": "Quelle propriété CSS est utilisée pour définir la couleur de fond d'un élément ?",
-        "options": ["color", "background-color", "font-color", "background"],
-        "answer": [1,2]
+        "question": "Quelle est la racine carrée de 9 ?",
+        "options": "",
+        "answer": "3"
     },
     {
-        "question": "Quel événement JavaScript est déclenché lorsqu'un utilisateur clique sur un élément HTML ?",
-        "options": ["onchange", "onsubmit", "onclick", "onmouseover"],
+        "question": "Combien de côtés a un triangle ?",
+        "options": ["3", "4", "5", "6"],
+        "answer": 0
+    },
+    {
+        "question": "Vrai ou faux : 0 est un nombre pair ?",
+        "options": [ "Vrai","Faux"],
+        "answer": 0
+    },
+    {
+        "question": "Quel est le résultat de 5 * 5 ?",
+        "options": "",
+        "answer": "25"
+    },
+    {
+        "question": "Quel est le double de 6 ?",
+        "options": "",
+        "answer": "12"
+    },
+    {
+        "question": "Combien de degrés y a-t-il dans un cercle complet ?",
+        "options": ["90", "180", "270", "360"],
+        "answer": 3
+    },
+    {
+        "question": "Vrai ou faux : Tous les carrés sont des rectangles ?",
+        "options": [ "Vrai","Faux"],
+        "answer": 0
+    },
+    {
+        "question": "Quel est le périmètre d'un rectangle de longueur 4 et de largeur 3 ?",
+        "options": "",
+        "answer": "14"
+    },
+    {
+        "question": "Quelle est la valeur de π (pi) ?",
+        "options": "",
+        "answer": "3.14159"
+    },
+    {
+        "question": "Combien de côtés a un pentagone ?",
+        "options": ["3", "4", "5", "6"],
         "answer": 2
     },
     {
-        "question": "Quelle balise HTML est utilisée pour inclure du code JavaScript dans un document HTML ?",
-        "options": ["<js>", "<javascript>", "<code>", "<script>"],
-        "answer": 3
-    },
-    {
-        "question": "Quelle unité de mesure CSS est relative à la taille de la police de caractères de l'élément parent ?",
-        "options": ["em", "px", "%", "rem"],
-        "answer": 0
-    },
-    {
-        "question": "Quelle est la fonction JavaScript utilisée pour imprimer du texte dans la console du navigateur ?",
-        "options": ["print()", "console.log()", "log()", "debug()"],
+        "question": "Vrai ou faux : Tous les triangles ont au moins un angle aigu ?",
+        "options": [ "Vrai","Faux"],
         "answer": 1
     },
     {
-        "question": "Quel attribut HTML est utilisé pour spécifier l'URL d'une image ?",
-        "options": ["src", "href", "link", "url"],
-        "answer": 0
+        "question": "Quel est le résultat de 8 divisé par 2 ?",
+        "options": "",
+        "answer": "4"
     },
     {
-        "question": "Quelle propriété CSS est utilisée pour définir la taille de la police de caractères ?",
-        "options": ["text-size", "size", "font", "font-size"],
-        "answer": 3
+        "question": "Quelle est la surface d'un carré de côté 6 ?",
+        "options": "",
+        "answer": "36"
     },
     {
-        "question": "Quel opérateur JavaScript est utilisé pour concaténer des chaînes de caractères ?",
-        "options": ["+", "*", "/", "-"],
-        "answer": 0
-    },
-    {
-        "question": "Quelle balise HTML est utilisée pour créer un lien hypertexte ?",
-        "options": ["<link>", "<a>", "<href>", "<url>"],
-        "answer": 1
-    },
-    {
-        "question": "Quelle propriété CSS est utilisée pour centrer un élément horizontalement ?",
-        "options": ["text-align: center;", "align: center;", "center: horizontal;", "horizontal-align: center;"],
-        "answer": 0
-    },
-    {
-        "question": "Quelle méthode JavaScript est utilisée pour ajouter un élément à la fin d'un tableau ?",
-        "options": ["add()", "append()", "insert()", "push()"],
-        "answer": 3
-    },
-    {
-        "question": "Quel attribut HTML est utilisé pour spécifier le texte alternatif d'une image ?",
-        "options": ["title", "description", "alt", "caption"],
+        "question": "Combien de côtés a un octogone ?",
+        "options": ["6", "7", "8", "9"],
         "answer": 2
     },
     {
-        "question": "Quelle propriété CSS est utilisée pour spécifier l'espacement entre les éléments ?",
-        "options": ["margin", "padding", "space", "spacing"],
-        "answer": 0
-    },
-    {
-        "question": "Quelle fonction JavaScript est utilisée pour convertir une chaîne de caractères en entier ?",
-        "options": ["parseInt()", "convertToInt()", "toInteger()", "stringToNumber()"],
-        "answer": 0
-    },
-    {
-        "question": "Quelle balise HTML est utilisée pour créer une ligne horizontale ?",
-        "options": ["<line>", "<hr>", "<br>", "<hrz>"],
+        "question": "Vrai ou faux : Les nombres premiers sont toujours impairs ?",
+        "options": [ "Vrai","Faux"],
         "answer": 1
     },
     {
-        "question": "Quelle propriété CSS est utilisée pour définir la couleur du texte ?",
-        "options": ["font-color", "text-color", "font", "color"],
-        "answer": 3
+        "question": "Quelle est la valeur de l'angle droit en degrés ?",
+        "options": "",
+        "answer": "90"
     },
     {
-        "question": "Quelle méthode JavaScript est utilisée pour supprimer le dernier élément d'un tableau ?",
-        "options": ["removeLast()", "pop()", "deleteLast()", "remove()"],
-        "answer": 1
+        "question": "Combien de millimètres y a-t-il dans un mètre ?",
+        "options": "",
+        "answer": "1000"
     },
     {
-        "question": "Quel élément HTML est utilisé pour créer un formulaire ?",
-        "options": ["<form>", "<input>", "<field>", "<submit>"],
-        "answer": 0
+        "question": "Quel est le résultat de 3 puissance 4 ?",
+        "options": "",
+        "answer": "81"
     },
     {
-        "question": "Quelle propriété CSS est utilisée pour afficher un élément en ligne avec les autres éléments ?",
-        "options": ["display: inline;", "position: inline;", "align: inline;", "layout:inline;"],
-        "answer": 0
+        "question": "Combien de côtés a un dodecagone ?",
+        "options": ["10", "11", "12", "13"],
+        "answer": 2
     }
 ]
