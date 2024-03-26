@@ -57,7 +57,7 @@
     {
         "question": "Vrai ou faux : Tous les triangles ont au moins un angle aigu ?",
         "options": [ "Vrai","Faux"],
-        "answer": 1
+        "answer": 0
     },
     {
         "question": "Quel est le résultat de 8 divisé par 2 ?",
