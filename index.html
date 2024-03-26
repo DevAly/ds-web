@@ -1,63 +1,69 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz interactif</title>
     <style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-h1 {
-    text-align: center;
-}
+        h1 {
+            text-align: center;
+        }
 
-button {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-button:hover {
-    background-color: #0056b3;
-}
-#progress-bar-container {
-    width: 100%;
-    background-color: #ddd;
-    border-radius: 50px;
-    margin-bottom: 20px;
-}
+        button:hover {
+            background-color: #0056b3;
+        }
 
-#progress-bar {
-    height: 10px;
-    background-color: #007bff;
-    border-radius: 50px;
-    width: 0; /* Initial width */
-}
-.fail{
-    color: red;
-}
-.success{
-    color: green;
-}
-</style>
+        #progress-bar-container {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        #progress-bar {
+            height: 10px;
+            background-color: #007bff;
+            border-radius: 50px;
+            width: 0;
+            /* Initial width */
+        }
+
+        .fail {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Quiz interactif</h1>
@@ -67,20 +73,33 @@ button:hover {
         </div>
         <div id="question-container"></div>
         <button id="submit-btn">Soumettre</button>
+        <button id="back-btn" style="display: none;">Retour</button> <!-- Back button -->
         <div id="feedback"></div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let questions = [];
+        let userResponses = {}; // Array to store user responses
+        let timeLeft = 60; // Set timer duration in seconds
+        document.addEventListener('DOMContentLoaded', function () {
             const questionContainer = document.getElementById('question-container');
             const submitButton = document.getElementById('submit-btn');
             const feedbackContainer = document.getElementById('feedback');
             const timerDisplay = document.getElementById('timer');
 
-            let currentQuestionIndex = 0;
-            let score = 0;
-            let questions = [];
-            let userResponses = []; // Array to store user responses
-            let timeLeft = 10; // Set timer duration in seconds
+
+            const backButton = document.getElementById('back-btn');
+
+            backButton.addEventListener('click', function () {
+               
+                if (currentQuestionIndex > 0) {
+                    currentQuestionIndex--;
+                    showQuestion();
+                }
+            });
+
+
 
             function startTimer() {
                 const timerInterval = setInterval(() => {
@@ -89,7 +108,7 @@ button:hover {
                         showResults();
                     } else {
                         timeLeft--;
-                        timerDisplay.textContent = Temps restant: ${timeLeft} secondes;
+                        timerDisplay.textContent = `Temps restant: ${timeLeft} secondes`;
 
                         if (timeLeft === 0) {
                             clearInterval(timerInterval);
@@ -101,32 +120,46 @@ button:hover {
 
             function updateProgressBar() {
                 const progress = (currentQuestionIndex + 1) / questions.length * 100;
-                document.getElementById('progress-bar').style.width = ${progress}%;
+                document.getElementById('progress-bar').style.width = `${progress}%`;
             }
 
             function showQuestion() {
+                questionContainer.innerHTML = '';
+                if (currentQuestionIndex > 0) {
+                    backButton.style.display = 'block';
+                } else {
+                    backButton.style.display = 'none';
+                }
                 updateProgressBar();
                 const currentQuestion = questions[currentQuestionIndex];
+                let value = typeof userResponses[currentQuestionIndex] !== "undefined" ? userResponses[currentQuestionIndex] : '';
+
                 if (typeof currentQuestion.answer === 'string') {
                     // Write it yourself question type
                     questionContainer.innerHTML = `
                         <h2>${currentQuestion.question}</h2>
-                        <input type="text" id="write-answer">
+                        <input type="text" id="write-answer" value="${value}">
                     `;
                 } else {
+                    let checkedValues = typeof userResponses[currentQuestionIndex] !== "undefined" ? userResponses[currentQuestionIndex] : [];
+
                     // Multiple-choice question type
                     const optionsHtml = currentQuestion.options.map((option, index) => {
                         if (Array.isArray(currentQuestion.answer)) {
                             return `
                                 <li>
-                                    <input type="checkbox" id="option${index}" name="option" value="${index}">
+                                    <input type="checkbox" id="option${index}" name="option" value="${index}" ${checkedValues.includes(index) ? 'checked' : ''}>
                                     <label for="option${index}">${escapeHtml(option)}</label>
                                 </li>
                             `;
                         } else {
+                            if(typeof value === "string"){
+                                value = undefined;
+                            }
+
                             return `
                                 <li>
-                                    <input type="radio" id="option${index}" name="option" value="${index}">
+                                    <input type="radio" id="option${index}" name="option" value="${index}" ${value == index ? 'checked' : ''}>
                                     <label for="option${index}">${escapeHtml(option)}</label>
                                 </li>
                             `;
@@ -141,17 +174,18 @@ button:hover {
                 }
             }
 
-            function saveUserResponse(response) {
-                userResponses.push(response);
+
+            function saveUserResponse(response, currentQuestionIndex) {
+                userResponses[currentQuestionIndex] = response;
             }
 
-            submitButton.addEventListener('click', function() {
+            submitButton.addEventListener('click', function () {
                 const currentQuestion = questions[currentQuestionIndex];
                 if (typeof currentQuestion.answer === 'string') {
                     // Write it yourself question type
                     const writeAnswerInput = document.getElementById('write-answer');
                     const userAnswer = writeAnswerInput.value.trim().toLowerCase();
-                    saveUserResponse(userAnswer); // Save user response
+                    saveUserResponse(userAnswer, currentQuestionIndex); // Save user response
                 } else {
                     // Multiple-choice question type
                     const selectedOptions = document.querySelectorAll('input[name="option"]:checked');
@@ -160,10 +194,11 @@ button:hover {
                         return;
                     }
                     const answerIndices = Array.from(selectedOptions).map(option => parseInt(option.value));
-                    saveUserResponse(answerIndices); // Save user response
+                    saveUserResponse(answerIndices, currentQuestionIndex); // Save user response
                 }
 
                 currentQuestionIndex++;
+             
                 if (currentQuestionIndex < questions.length) {
                     showQuestion();
                 } else {
@@ -172,81 +207,90 @@ button:hover {
             });
 
             function showResults() {
-    questionContainer.innerHTML = '';
-    submitButton.style.display = 'none';
-    let resultHTML = '';
-    let score = 0; // Initialize score variable
-    resultHTML += '<ul>';
-    questions.forEach((question, index) => {
-        resultHTML += '<li>';
-        resultHTML += <h2>Question ${index + 1}: ${question.question}</h2>;
-        resultHTML += '<p><strong>Votre réponse:</strong>';
-        if(userResponses[index]===undefined){
-                resultHTML+="undefined"
-                resultHTML += '</p>';
-                resultHTML += '<p><i>Réponse correcte:';
-                resultHTML += typeof question.answer === 'string'?
-                                escapeHtml(question.answer):
-                                Array.isArray(question.answer)?
-                                    question.answer.map(correctIndex => question.options[correctIndex]).join(', '):
-                                    escapeHtml(question.options[question.answer])
-                +'</i>'}
-        else{
-        if (typeof question.answer === 'string') {
-            resultHTML += escapeHtml(userResponses[index]);
-            // Check if user response matches correct answer for string type questions
-            if (userResponses[index] === question.answer) {
-                score++; // Increment score if correct
-            }else{
-                resultHTML += '</p>';
-                resultHTML += '<p><i>Réponse correcte:';
-                resultHTML += escapeHtml(question.answer)+'</i>'
-            }
-        } else if (Array.isArray(question.answer)) {
-            // Sort both user response array and correct answer array before comparison
-            const sortedUserResponse = userResponses[index].slice().sort();
-            const sortedCorrectAnswer = question.answer.slice().sort();
-            // Check if sorted user response array matches sorted correct answer array
-            const userResponseText = userResponses[index].map(responseIndex => question.options[responseIndex]).join(', ');
-            resultHTML += userResponseText;
-            if (arraysEqual(sortedUserResponse, sortedCorrectAnswer)) {
-                score++; // Increment score if correct
-            }else{
-                
-                resultHTML += '</p>';
-                resultHTML += '<p><i>Réponse correcte:';
-                resultHTML += question.answer.map(correctIndex => question.options[correctIndex]).join(', ')+'</i>';
+                backButton.style.display = 'none';
+                questionContainer.innerHTML = '';
+                submitButton.style.display = 'none';
+                let resultHTML = '';
+                let score = 0; // Initialize score variable
+                resultHTML += '<ul>';
+                for (index = 0; index < questions.length; index++) {
+                    var question = questions[index];
+                    // }
+                    // questions.forEach((question, index) => {
+                    resultHTML += '<li>';
+                    resultHTML += `<h2>Question ${index + 1}: ${question.question}</h2>`;
+                    resultHTML += '<p><strong>Votre réponse:</strong>';
+                    if (userResponses[index] === undefined) {
+                        resultHTML += "undefined"
+                        resultHTML += '</p>';
+                        resultHTML += '<p><i>Réponse correcte:';
+                        resultHTML += typeof question.answer === 'string' ?
+                            escapeHtml(question.answer) :
+                            Array.isArray(question.answer) ?
+                                question.answer.map(correctIndex => question.options[correctIndex]).join(', ') :
+                                escapeHtml(question.options[question.answer])
+                                + '</i>'
+                    }
+                    else {
+                        if (typeof question.answer === 'string') {
+                            resultHTML += escapeHtml(userResponses[index]);
+                            // Check if user response matches correct answer for string type questions
+                            if (userResponses[index] === question.answer) {
+                                score++; // Increment score if correct
+                            } else {
+                                resultHTML += '</p>';
+                                resultHTML += '<p><i>Réponse correcte:';
+                                resultHTML += escapeHtml(question.answer) + '</i>'
+                            }
+                        } else if (Array.isArray(question.answer)) {
+                            // Sort both user response array and correct answer array before comparison
+                            const sortedUserResponse = userResponses[index].slice().sort();
+                            const sortedCorrectAnswer = question.answer.slice().sort();
+                            // Check if sorted user response array matches sorted correct answer array
+                            const userResponseText = userResponses[index].map(responseIndex => question.options[responseIndex]).join(', ');
+                            resultHTML += userResponseText;
+                            if (arraysEqual(sortedUserResponse, sortedCorrectAnswer)) {
+                                score++; // Increment score if correct
+                            } else {
+
+                                resultHTML += '</p>';
+                                resultHTML += '<p><i>Réponse correcte:';
+                                resultHTML += question.answer.map(correctIndex => question.options[correctIndex]).join(', ') + '</i>';
+                            }
+
+                        } else {
+                            resultHTML += escapeHtml(question.options[userResponses[index]]);
+                            // Check if user response matches correct answer for single choice questions
+                            if (userResponses[index] == question.answer) {
+                                score++; // Increment score if correct
+                            } else {
+                                resultHTML += '</p>';
+                                resultHTML += '<p><i>Réponse correcte:';
+                                resultHTML += escapeHtml(question.options[question.answer]) + '</i>';
+                            }
+                        }
+                    }
+                    resultHTML += '</p>';
+                    resultHTML += '</li><br>';
+                };
+                resultHTML += '</ul>';
+
+                resultHTML = `<p>Vous avez obtenu ${score} sur ${questions.length} questions.</p>` + resultHTML;
+                feedbackContainer.innerHTML = resultHTML;
+                console.log("User Responses:", userResponses); // Print user responses
+
+
+             
             }
 
-        } else {
-            resultHTML += escapeHtml(question.options[userResponses[index]]);
-            // Check if user response matches correct answer for single choice questions
-            if (userResponses[index] == question.answer) {
-                score++; // Increment score if correct
-            }else{
-                resultHTML += '</p>';
-                resultHTML += '<p><i>Réponse correcte:';
-                resultHTML += escapeHtml(question.options[question.answer])+'</i>'; 
+            // Function to check if two arrays are equal
+            function arraysEqual(arr1, arr2) {
+                if (arr1.length !== arr2.length) return false;
+                for (let i = 0; i < arr1.length; i++) {
+                    if (arr1[i] !== arr2[i]) return false;
+                }
+                return true;
             }
-        }}
-        resultHTML += '</p>';
-        resultHTML += '</li><br>';
-    });
-    resultHTML += '</ul>';
-    
-    resultHTML = <p>Vous avez obtenu ${score} sur ${questions.length} questions.</p> + resultHTML;
-    feedbackContainer.innerHTML = resultHTML;
-    console.log("User Responses:", userResponses); // Print user responses
-}
-
-// Function to check if two arrays are equal
-function arraysEqual(arr1, arr2) {
-    if (arr1.length !== arr2.length) return false;
-    for (let i = 0; i < arr1.length; i++) {
-        if (arr1[i] !== arr2[i]) return false;
-    }
-    return true;
-}
 
 
             // Fetch questions from JSON file
@@ -264,4 +308,5 @@ function arraysEqual(arr1, arr2) {
         });
     </script>
 </body>
+
 </html>
